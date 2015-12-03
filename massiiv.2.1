@@ -1,0 +1,102 @@
+from random import *
+
+def matrix3(): # 3x3 listide list, ühes punktis 1-9
+    matrix3 = []
+    for i in range(0,3): # rea loendur, kolm rida
+        row = []
+        for j in range(0,3): # ruudu loendur, kolm ruutu
+            square = []
+            for x in range(1,10): # ruut, 1-9 arvud
+                square.append(x)
+            row.append(square)
+        matrix3.append(row)
+    return matrix3
+
+def matrix9(): # 9x9 listide list, ühes punktis 1-9
+    matrix9 = []
+    for i in range(0,9): # rea loendur, üheksa rida 
+        row = []
+        for j in range(0,9): # ruudu loendur, üheksa ruutu
+            square = []
+            for x in range(1,10): # ruut, 1-9 arvud
+                square.append(x)
+            row.append(square)
+        matrix9.append(row)
+    return matrix9
+
+field0 = []
+for i in range(0,9): # rea loendur, üheksa rida
+    row = []
+    for j in range(0,9): # ruudu loendur, üheksa ruutu
+        row.append(0)
+    field0.append(row)
+
+def num_gen(): # mänguvälja genereerija
+    for i in range(0,9): # rea loendur 1-9
+        selected = [] # asukohad real, kuhu kuvatakse etteantud number
+        for r in range(0,choice([1,2])):
+            selected.append(choice([x for x in range(0,3) if x not in selected]))
+        for r in range(0,choice([1,2])):
+            selected.append(choice([x for x in range(3,6) if x not in selected]))
+        for r in range(0,choice([1,2])):
+            selected.append(choice([x for x in range(6,9) if x not in selected]))
+        for j in range(0,len(selected)):
+            current_dir = choice(selected)
+            selected.remove(current_dir)
+            if i in range(0,3):
+                if current_dir in range(0,3):
+                    current_num = choice([x for x in matrix3[0][0] if x in matrix9[i][current_dir]])
+                    matrix3[0][0].remove(current_num)
+                if current_dir in range(3,6):
+                    current_num = choice([x for x in matrix3[0][1] if x in matrix9[i][current_dir]])
+                    matrix3[0][1].remove(current_num)
+                if current_dir in range(6,9):
+                    current_num = choice([x for x in matrix3[0][2] if x in matrix9[i][current_dir]])
+                    matrix3[0][2].remove(current_num)
+            if i in range(3,6):
+                if current_dir in range(0,3):
+                    current_num = choice([x for x in matrix3[1][0] if x in matrix9[i][current_dir]])
+                    matrix3[1][0].remove(current_num)
+                if current_dir in range(3,6):
+                    current_num = choice([x for x in matrix3[1][1] if x in matrix9[i][current_dir]])
+                    matrix3[1][1].remove(current_num)
+                if current_dir in range(6,9):
+                    current_num = choice([x for x in matrix3[1][2] if x in matrix9[i][current_dir]])
+                    matrix3[1][2].remove(current_num)
+            if i in range(6,9):
+                if current_dir in range(0,3):
+                    current_num = choice([x for x in matrix3[2][0] if x in matrix9[i][current_dir]])
+                    matrix3[2][0].remove(current_num)
+                if current_dir in range(3,6):
+                    current_num = choice([x for x in matrix3[2][1] if x in matrix9[i][current_dir]])
+                    matrix3[2][1].remove(current_num)
+                if current_dir in range(6,9):
+                    current_num = choice([x for x in matrix3[2][2] if x in matrix9[i][current_dir]])
+                    matrix3[2][2].remove(current_num)
+            #unchosen_row.remove(current_num)
+            field0[i].pop(current_dir)
+            field0[i].insert(current_dir,current_num)
+            for m in range(0,9):
+                if m == current_dir:
+                    matrix9[i][m].clear()
+                elif current_num in matrix9[i][m]:
+                    matrix9[i][m].remove(current_num)
+            for n in range(0,9):
+                if current_num in matrix9[n][current_dir]:
+                    matrix9[n][current_dir].remove(current_num)
+
+matrix3 = matrix3()
+matrix9 = matrix9()
+num_gen()
+
+for s in range(0,3):
+    print(matrix3[s])
+print('\n')
+for z in range(0,9):
+    print(matrix9[z])
+print('\n')
+print('MÄNGUVÄLI')
+for y in range(0,9):
+    print(field0[y])
+    
+        
