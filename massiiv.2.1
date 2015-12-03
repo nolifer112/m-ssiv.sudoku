@@ -1,4 +1,5 @@
 from random import *
+from webbrowser import *
 
 def matrix3(): # 3x3 listide list, ühes punktis 1-9
     matrix3 = []
@@ -84,6 +85,7 @@ def num_gen(): # mänguvälja genereerija
             for n in range(0,9):
                 if current_num in matrix9[n][current_dir]:
                     matrix9[n][current_dir].remove(current_num)
+        open('https://www.youtube.com/watch?v=I33u_EHLI3w')
 
 matrix3 = matrix3()
 matrix9 = matrix9()
